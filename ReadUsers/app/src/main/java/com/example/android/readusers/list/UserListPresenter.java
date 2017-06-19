@@ -43,18 +43,16 @@ public class UserListPresenter implements UserListContract.Presenter{
         Cursor cursor = context.getContentResolver().query(Constants.USER_CONTENT_URI, null, null, null, null);
 
         if(cursor != null) {
-            if(cursor.moveToFirst()) {
-                while(cursor.moveToNext()) {
-                    UserInfo user = new UserInfo();
-                    user.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Constants._ID)));
-                    user.setName(cursor.getString(cursor.getColumnIndexOrThrow(Constants.USER_COLUMN_NAME)));
-                    user.setAddress(cursor.getString(cursor.getColumnIndexOrThrow(Constants.USER_COLUMN_ADDRESS)));
-                    user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(Constants.USER_COLUMN_EMAIL)));
-                    user.setImageUrl(cursor.getString(cursor.getColumnIndexOrThrow(Constants.USER_COLUMN_IMG_URL)));
-                    listUserInfo.add(user);
+            while(cursor.moveToNext()) {
+                UserInfo user = new UserInfo();
+                user.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Constants._ID)));
+                user.setName(cursor.getString(cursor.getColumnIndexOrThrow(Constants.USER_COLUMN_NAME)));
+                user.setAddress(cursor.getString(cursor.getColumnIndexOrThrow(Constants.USER_COLUMN_ADDRESS)));
+                user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(Constants.USER_COLUMN_EMAIL)));
+                user.setImageUrl(cursor.getString(cursor.getColumnIndexOrThrow(Constants.USER_COLUMN_IMG_URL)));
+                listUserInfo.add(user);
 
-                    Toast.makeText(context, user.toString(), Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(context, user.toString(), Toast.LENGTH_SHORT).show();
             }
             cursor.close();
         } else {
